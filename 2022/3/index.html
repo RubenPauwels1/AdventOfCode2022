@@ -1,0 +1,80 @@
+<script type="text/javascript" src="input.js"></script>
+<script type="text/javascript" src="exampleInput.js"></script>
+<script>
+
+    const char2number = (char) => {
+        if (char.toUpperCase() === char) {
+            return char.charCodeAt(0) - 38;
+        } else {
+            return char.charCodeAt(0) - 96
+        }
+    }
+
+    const splitIn2 = (string) => {
+        const length = string.length;
+        const halfLength = length / 2;
+
+        // console.log({
+        //     original: string,
+        //     split: [string.substring(0, halfLength), string.substring(halfLength, length)]
+        // })
+
+        return [string.substring(0, halfLength), string.substring(halfLength, length)]
+    }
+
+    const findReturningChar = (strings = ['', '']) => {
+        let s1 = strings[0];
+        let s2 = strings[1];
+
+        for (let char of s1) {
+            if (s2.includes(char)) {
+                return char;
+            }
+        }
+    }
+
+    const findReturningCharThree = (strings = ['', '', '']) => {
+        let s1 = strings[0];
+        let s2 = strings[1];
+        let s3 = strings[2];
+
+        
+
+        for (let char of s1) {
+            // Check if the character exists in the other two strings
+            if (s2.includes(char) && s3.includes(char)) {
+                return char;
+            }
+        }
+    }
+
+    const calculateTotalPart1 = () => {
+        const _input = input.split('\n');
+        let total = 0;
+
+        _input.forEach(string => {
+            const split = splitIn2(string);
+            const char = findReturningChar(split);
+            total += char2number(char);
+        })
+
+        return total;
+    }
+
+    const calculateTotalPart2 = () => {
+        const _input = input.split('\n');
+        let total = 0;
+
+        for (let i = 0; i < _input.length; i += 3) {
+            const threeItems = _input.slice(i, i + 3);
+            const char = findReturningCharThree(threeItems);
+            total += char2number(char);
+        }
+
+        return total;
+    }
+
+    console.log(calculateTotalPart1());
+    console.log(calculateTotalPart2());
+
+</script>
